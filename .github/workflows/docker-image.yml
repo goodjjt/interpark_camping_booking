@@ -25,4 +25,4 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: ${{ secrets.DOCKERHUB_USERNAME }}/interpark_crawling:${{github.ref_name }}
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/interpark_camping_booking:${{github.ref_name }}
