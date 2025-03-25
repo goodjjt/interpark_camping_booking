@@ -8,6 +8,8 @@ import os
 if os.name == 'nt':
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
+print(os.environ.get('CAMPING_SITE_NAME'))
+
 # Telegram
 async def bot_send(msg):
     telegram_token = "5128692345:AAHkO-3JZ9tZYP2hrS5UAlnYCrO0PiO09_A"
