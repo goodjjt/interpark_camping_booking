@@ -5,7 +5,7 @@ import asyncio
 import telegram
 import requests
 
-asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+# asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
 # Telegram
 async def bot_send(msg):
