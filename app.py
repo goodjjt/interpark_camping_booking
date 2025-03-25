@@ -16,10 +16,10 @@ async def bot_send(msg):
     bot = telegram.Bot(token = telegram_token)
     await bot.sendMessage(chat_id=telegram_id, text=msg)
 
-request_url_working = 'https://api-ticketfront.interpark.com/v1/goods/21005592/playSeq/PlaySeq/C63/REMAINSEAT'
-request_url = 'https://api-ticketfront.interpark.com/v1/goods/21005592/playSeq/PlaySeq/C64/REMAINSEAT'
-camping_site_name = '한탄강 오토캠핑장'
-site_url = 'https://tickets.interpark.com/goods/21005592'
+request_url_working = os.getenv('REQUEST_URL_WORKING','https://api-ticketfront.interpark.com/v1/goods/21005592/playseq/playseq/c63/remainseat')
+request_url = os.getenv('REQUEST_URL','https://api-ticketfront.interpark.com/v1/goods/21005592/playseq/playseq/c64/remainseat')
+camping_site_name = os.getenv('CAMPING_SITE_NAME','한탄강 오토캠핑장')
+site_url = os.getenv('SITE_URL','https://tickets.interpark.com/goods/21005592')
 
 print(camping_site_name + " " + site_url)
 asyncio.run(bot_send(camping_site_name + " " + site_url))
@@ -40,7 +40,7 @@ def crawling():
         asyncio.run(bot_send(message))
 
 # step3.실행 주기 설정
-schedule.every(5).seconds.do(crawling)
+schedule.every(10).seconds.do(crawling)
 # schedule.every(30).minutes.do(message1)
 
 while True:
