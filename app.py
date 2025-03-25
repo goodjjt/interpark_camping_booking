@@ -4,8 +4,10 @@ import time
 import asyncio
 import telegram
 import requests
+import os
 
-# asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+if os.name == 'nt':
+    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
 # Telegram
 async def bot_send(msg):
@@ -20,9 +22,10 @@ camping_site_name = '한탄강 오토캠핑장'
 site_url = 'https://tickets.interpark.com/goods/21005592'
 
 print(camping_site_name + " " + site_url)
+asyncio.run(bot_send(camping_site_name + " " + site_url))
 
 def crawling():
-    response = requests.get(request_url_working, headers={'User-Agent': 'Mozilla/5.0'})
+    response = requests.get(request_url, headers={'User-Agent': 'Mozilla/5.0'})
     message = "[" + camping_site_name + "]" + "  " + site_url  + '\n'
     cnt = 0
     if response.status_code == 200:
