@@ -17,15 +17,13 @@ async def bot_send(msg):
     bot = telegram.Bot(token = telegram_token)
     await bot.sendMessage(chat_id=telegram_id, text=msg)
 
-request_url_working = 'https://api-ticketfront.interpark.com/v1/goods/21005592/playSeq/PlaySeq/C63/REMAINSEAT'
-request_url = 'https://api-ticketfront.interpark.com/v1/goods/21005592/playSeq/PlaySeq/C64/REMAINSEAT'
-camping_site_name = '한탄강 오토캠핑장'
-site_url = 'https://tickets.interpark.com/goods/21005592'
+print("Start !!!")
+asyncio.run(bot_send("Start !!!"))
 
-print(camping_site_name + " " + site_url)
-asyncio.run(bot_send(camping_site_name + " " + site_url))
-
-def crawling():
+def crawling_interpark(Code, Name, Seq):
+    request_url = f'https://api-ticketfront.interpark.com/v1/goods/{Code}/playSeq/PlaySeq/{Seq}/REMAINSEAT'
+    camping_site_name = f"{Name} 캠핑장"
+    site_url = f'https://tickets.interpark.com/goods/{Code}'
     response = requests.get(request_url, headers={'User-Agent': 'Mozilla/5.0'})
     message = "[" + camping_site_name + "]" + "  " + site_url  + '\n'
     cnt = 0
@@ -41,7 +39,11 @@ def crawling():
         asyncio.run(bot_send(message))
 
 # step3.실행 주기 설정
-schedule.every(10).seconds.do(crawling)
+schedule.every(10).seconds.do(lambda: crawling_interpark("21005592", "한탄강", "C64"))
+schedule.every(10).seconds.do(lambda: crawling_interpark("22005895", "킨텍스", "933"))
+schedule.every(10).seconds.do(lambda: crawling_interpark("22016459", "연천재인폭포", "816"))
+schedule.every(10).seconds.do(lambda: crawling_interpark("22002652", "노을", "655"))
+schedule.every(10).seconds.do(lambda: crawling_interpark("21012652", "천왕산가족", "B81"))
 # schedule.every(30).minutes.do(message1)
 
 while True:
